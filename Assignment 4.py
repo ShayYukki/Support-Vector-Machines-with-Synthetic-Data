@@ -18,11 +18,6 @@
 # For this problem, we will generate synthetic data for a nonlinear binary classification problem and partition it into training, validation and test sets. Our goal is to understand the behavior of SVMs with Radial-Basis Function (RBF) kernels with different values of $C$ and $\gamma$.
 
 # In[69]:
-
-
-# DO NOT EDIT THIS FUNCTION; IF YOU WANT TO PLAY AROUND WITH DATA GENERATION, 
-# MAKE A COPY OF THIS FUNCTION AND THEN EDIT
-#
 import numpy as np
 from sklearn.datasets import make_moons
 from sklearn.model_selection import train_test_split
@@ -59,12 +54,6 @@ def generate_data(n_samples, tst_frac=0.2, val_frac=0.2):
 
 
 # In[70]:
-
-
-#
-#  DO NOT EDIT THIS FUNCTION; IF YOU WANT TO PLAY AROUND WITH VISUALIZATION, 
-#  MAKE A COPY OF THIS FUNCTION AND THEN EDIT 
-#
 
 def visualize(models, param, X, y):
   # Initialize plotting
@@ -109,20 +98,7 @@ def visualize(models, param, X, y):
 n_samples = 300    # Total size of data set 
 (X_trn, y_trn), (X_val, y_val), (X_tst, y_tst) = generate_data(n_samples)
 
-
-# ---
-# ### **a**. (25 points)  The effect of the regularization parameter, $C$
-# Complete the Python code snippet below that takes the generated synthetic 2-d data as input and learns non-linear SVMs. Use scikit-learn's [SVC](https://scikit-learn.org/stable/modules/generated/sklearn.svm.SVC.html) function to learn SVM models with **radial-basis kernels** for fixed $\gamma$ and various choices of $C \in \{10^{-3}, 10^{-2}\, \cdots, 1, \, \cdots\, 10^5\}$. The value of $\gamma$ is fixed to $\gamma = \frac{1}{d \cdot \sigma_X}$, where $d$ is the data dimension and $\sigma_X$ is the standard deviation of the data set $X$. SVC can automatically use these setting for $\gamma$ if you pass the argument gamma = 'scale' (see documentation for more details).
-# 
-# **Plot**: For each classifier, compute **both** the **training error** and the **validation error**. Plot them together, making sure to label the axes and each curve clearly.
-# 
-# **Discussion**: How do the training error and the validation error change with $C$? Based on the visualization of the models and their resulting classifiers, how does changing $C$ change the models? Explain in terms of minimizing the SVM's objective function $\frac{1}{2} \mathbf{w}^\prime \mathbf{w} \, + \, C \, \Sigma_{i=1}^n \, \ell(\mathbf{w} \mid \mathbf{x}_i, y_i)$, where $\ell$ is the hinge loss for each training example $(\mathbf{x}_i, y_i)$.
-# 
-# **Final Model Selection**: Use the validation set to select the best the classifier corresponding to the best value, $C_{best}$. Report the accuracy on the **test set** for this selected best SVM model. _Note: You should report a single number, your final test set accuracy on the model corresponding to $C_{best}$_.
-
 # In[72]:
-
-
 from sklearn.svm import SVC
 # Learn support vector classifiers with a radial-basis function kernel with 
 # fixed gamma = 1 / (n_features * X.std()) and different values of C
@@ -198,18 +174,7 @@ for c in valErr:
 accuracy = models[minimum].score(X_tst, y_tst)
 print("C Accuracy " + str(minimum) + " is " + str(accuracy))        
 
-
-# # Discussion:
-
-# As C increases, training/validation error decreases. In the graphs shown, you can see that as C increases, the complexity of shapes around the data points also increases. This aligns with the idea that with lower C's, there is more error, and with higher C's, there is less errors (but more likely to overfit). 
-# 
-# When looking at SVM's function, a larger C means that slack variables becomes more penalized and a smaller margin accepted. Therefore, minimization of the function occurs with higher C values, but need to be careful due to overfitting.
-
-# # Final Model Selection:
-
 # In[73]:
-
-
 minimum = 1;
 for c in valErr:
     if valErr[c] < valErr[minimum]:
@@ -220,14 +185,7 @@ print("Lowest error of C value " + str(minimum) + " is " + str(error))
 
 
 # ---
-# ### **b**. (25 points)  The effect of the RBF kernel parameter, $\gamma$
-# Complete the Python code snippet below that takes the generated synthetic 2-d data as input and learns various non-linear SVMs. Use scikit-learn's [SVC](https://scikit-learn.org/stable/modules/generated/sklearn.svm.SVC.html) function to learn SVM models with **radial-basis kernels** for fixed $C$ and various choices of $\gamma \in \{10^{-2}, 10^{-1}\, 1, 10, \, 10^2 \, 10^3\}$. The value of $C$ is fixed to $C = 10$.
-# 
-# **Plot**: For each classifier, compute **both** the **training error** and the **validation error**. Plot them together, making sure to label the axes and each curve clearly.
-# 
-# **Discussion**: How do the training error and the validation error change with $\gamma$? Based on the visualization of the models and their resulting classifiers, how does changing $\gamma$ change the models? Explain in terms of the functional form of the RBF kernel, $\kappa(\mathbf{x}, \,\mathbf{z}) \, = \, \exp(-\gamma \cdot \|\mathbf{x} - \mathbf{z} \|^2)$
-# 
-# **Final Model Selection**: Use the validation set to select the best the classifier corresponding to the best value, $\gamma_{best}$. Report the accuracy on the **test set** for this selected best SVM model. _Note: You should report a single number, your final test set accuracy on the model corresponding to $\gamma_{best}$_.
+#The effect of the RBF kernel parameter, $\gamma$
 
 # In[74]:
 
@@ -346,14 +304,7 @@ value = np.loadtxt(r'/Users/shaylingzhao/Desktop/wdbc_val.csv', delimiter=",")
 X_val = value[:,1:]
 y_val = value[:,0]
 
-
-# Use scikit-learn's [SVC](https://scikit-learn.org/stable/modules/generated/sklearn.svm.SVC.html) function to learn SVM models with **radial-basis kernels** for **each combination** of $C \in \{10^{-2}, 10^{-1}, 1, 10^1, \, \cdots\, 10^4\}$ and $\gamma \in \{10^{-3}, 10^{-2}\, 10^{-1}, 1, \, 10, \, 10^2\}$. Print the tables corresponding to the training and validation errors.
-# 
-# **Final Model Selection**: Use the validation set to select the best the classifier corresponding to the best parameter values, $C_{best}$ and $\gamma_{best}$. Report the accuracy on the **test set** for this selected best SVM model. _Note: You should report a single number, your final test set accuracy on the model corresponding to $C_{best}$ and $\gamma_{best}$_.
-
 # In[77]:
-
-
 C_range = np.arange(-3.0, 6.0, 1.0)
 C_values = np.power(10.0, C_range)
 
@@ -440,17 +391,8 @@ print("So, the highest test accuracy is " + str(error))
 
 
 # ---
-# # 3. <font color='#556b2f'> **Breast Cancer Diagnosis with $k$-Nearest Neighbors**</font>, 25 points. 
-
-# Use scikit-learn's [k-nearest neighbor](https://scikit-learn.org/stable/modules/generated/sklearn.neighbors.KNeighborsClassifier.html) classifier to learn models for Breast Cancer Diagnosis with $k \in \{1, \, 5, \, 11, \, 15, \, 21\}$, with the kd-tree algorithm.
-# 
-# **Plot**: For each classifier, compute **both** the **training error** and the **validation error**. Plot them together, making sure to label the axes and each curve clearly.
-# 
-# **Final Model Selection**: Use the validation set to select the best the classifier corresponding to the best parameter value, $k_{best}$. Report the accuracy on the **test set** for this selected best kNN model. _Note: You should report a single number, your final test set accuracy on the model corresponding to $k_{best}$_.
-
+# # 3. <font color='#556b2f'> **Breast Cancer Diagnosis with $k$-Nearest Neighbors*
 # In[79]:
-
-
 from sklearn.neighbors import KNeighborsClassifier
 
 k = [1, 5, 11, 15, 21]
@@ -493,8 +435,5 @@ print("Best K value = " + str(minimum) + " and has an accuracy of " + str(accura
 
 
 # # Discussion:
-
-# **Discussion**: Which of these two approaches, SVMs or kNN, would you prefer for this classification task? Explain.
-# 
 # the kNN classification task is preferred because it yielded a higher accuracy percentage of 97.39% compared to the SVM that yielded an accuracy percentage of 95.65%. kNN also works better with data that has many attributes while SVM needs to match C with gamma which could require additional work/time. 
 # 
