@@ -1,19 +1,6 @@
-#!/usr/bin/env python
-# coding: utf-8
-
-# 
-# 
-# ---
-# 
-# <center><h1>Assignment 4</h1></center>
-# 
-# ---
-
 # Shayling Zhao
-# 
 # NetID: SXZ190015
 
-# # 1. <font color='#556b2f'> **Support Vector Machines with Synthetic Data**</font>, 50 points. 
 
 # For this problem, we will generate synthetic data for a nonlinear binary classification problem and partition it into training, validation and test sets. Our goal is to understand the behavior of SVMs with Radial-Basis Function (RBF) kernels with different values of $C$ and $\gamma$.
 
@@ -287,7 +274,7 @@ print("Lowest error of G value " + str(minimum) + " is " + str(error))
 
 
 # ---
-# # 2. <font color='#556b2f'> **Breast Cancer Diagnosis with Support Vector Machines**</font>, 25 points. 
+# Breast Cancer Diagnosis with Support Vector Machines
 
 # For this problem, we will use the [Wisconsin Breast Cancer](https://archive.ics.uci.edu/ml/datasets/Breast+Cancer+Wisconsin+(Diagnostic)) data set, which has already been pre-processed and partitioned into training, validation and test sets. Numpy's [loadtxt](https://docs.scipy.org/doc/numpy-1.13.0/reference/generated/numpy.loadtxt.html) command can be used to load CSV files.
 
@@ -390,8 +377,7 @@ print("Lowest error of G value " + str(minimum) + " is " + str(1-error))
 print("So, the highest test accuracy is " + str(error))
 
 
-# ---
-# # 3. <font color='#556b2f'> **Breast Cancer Diagnosis with $k$-Nearest Neighbors*
+# Breast Cancer Diagnosis with K-Nearest Neighbors
 # In[79]:
 from sklearn.neighbors import KNeighborsClassifier
 
@@ -436,4 +422,4 @@ print("Best K value = " + str(minimum) + " and has an accuracy of " + str(accura
 
 # # Discussion:
 # the kNN classification task is preferred because it yielded a higher accuracy percentage of 97.39% compared to the SVM that yielded an accuracy percentage of 95.65%. kNN also works better with data that has many attributes while SVM needs to match C with gamma which could require additional work/time. 
-# 
+
