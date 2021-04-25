@@ -80,7 +80,6 @@ def visualize(models, param, X, y):
 
 # In[71]:
 
-
 # Generate the data
 n_samples = 300    # Total size of data set 
 (X_trn, y_trn), (X_val, y_val), (X_tst, y_tst) = generate_data(n_samples)
@@ -171,11 +170,9 @@ error = 1 - (models[minimum].score(X_tst, y_tst))
 print("Lowest error of C value " + str(minimum) + " is " + str(error))        
 
 
-# ---
-#The effect of the RBF kernel parameter, $\gamma$
+#The effect of the RBF kernel parameter, gamma
 
 # In[74]:
-
 
 # Learn support vector classifiers with a radial-basis function kernel with 
 # fixed C = 10.0 and different values of gamma
